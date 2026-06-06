@@ -1,0 +1,43 @@
+schema_version: "0.1"
+policy_evaluation_id: "PE-001"
+value_relation_id: "VR-001"
+
+policy_profile:
+reference_type: "policy_id"
+value: "policy:communication-royalty-os-v0.1"
+description: "Initial policy profile for Communication Royalty OS value relation evaluation."
+
+evaluation_result: "requires_review"
+
+boundary_flags:
+
+* "low_confidence"
+* "human_review_required"
+* "automatic_decision_prohibited"
+
+required_actions:
+
+* "request_human_review"
+* "restrict_automatic_processing"
+
+review_priority: "normal"
+
+evaluator:
+actor_id: "policy-engine-001"
+actor_type: "policy_engine"
+display_name: "Communication Royalty OS Policy Engine"
+reference:
+reference_type: "internal_id"
+value: "policy-engine:communication-royalty-os-v0.1"
+
+timestamp: "2026-06-06T00:05:00Z"
+
+notes: "The related Value Relation should be reviewed before any attribution or future circulation decision is made. This evaluation does not assert ownership, compensation, or legal status."
+
+metadata:
+purpose: "Demonstrate a minimal Policy Evaluation record linked to a Value Relation."
+value_relation_reference: "VR-001"
+evaluation_layer: "policy_engine"
+automatic_compensation: false
+attribution_finalized: false
+review_required: true
