@@ -16,7 +16,7 @@ boundary_flags:
 
 required_actions:
   - "request_human_review"
-  - "restrict_automatic_processing"
+  - "reject_automatic_claim"
 
 review_priority: "normal"
 
@@ -30,8 +30,6 @@ evaluator:
 
 timestamp: "2026-06-06T00:05:00Z"
 
-notes: "The related Value Relation should be reviewed before any attribution or future circulation decision is made. This evaluation does not assert ownership, compensation, or legal status."
-
 metadata:
   purpose: "Demonstrate a minimal Policy Evaluation record linked to a Value Relation."
   value_relation_reference: "VR-001"
@@ -39,3 +37,4 @@ metadata:
   automatic_compensation: false
   attribution_finalized: false
   review_required: true
+  notes: "The related Value Relation should be reviewed before any attribution or future circulation decision is made. This evaluation does not assert ownership, compensation, or legal status."
