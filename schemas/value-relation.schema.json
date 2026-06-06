@@ -1,0 +1,244 @@
+{
+"$schema": "https://json-schema.org/draft/2020-12/schema",
+"$id": "https://example.org/schemas/value-relation.schema.json",
+"title": "Value Relation",
+"description": "A minimal Value Relation record for Communication Royalty OS.",
+"type": "object",
+"additionalProperties": false,
+"required": [
+"value_relation_id",
+"trace_event_id",
+"relation_type",
+"source_entity",
+"target_entity",
+"contribution_type",
+"contribution_scope",
+"strength",
+"status",
+"review_required"
+],
+"properties": {
+"schema_version": {
+"type": "string",
+"description": "Schema version for the Value Relation record.",
+"default": "0.1"
+},
+"value_relation_id": {
+"type": "string",
+"description": "Unique identifier for the value relation.",
+"minLength": 1,
+"pattern": "^VR-[A-Za-z0-9.*:-]+$"
+},
+"trace_event_id": {
+"type": "string",
+"description": "Identifier of the Trace Event that supports this value relation.",
+"minLength": 1,
+"pattern": "^TE-[A-Za-z0-9.*:-]+$"
+},
+"relation_type": {
+"type": "string",
+"description": "Type of value relationship.",
+"enum": [
+"referenced_by",
+"summarized_by",
+"reused_by",
+"transformed_by",
+"influenced",
+"routed_to",
+"derived_from",
+"supports",
+"contradicts",
+"requires_review",
+"not_applicable",
+"other"
+]
+},
+"source_entity": {
+"$ref": "#/$defs/entity"
+},
+"target_entity": {
+"$ref": "#/$defs/entity"
+},
+"contribution_type": {
+"type": "string",
+"description": "Type of contribution made by the source entity.",
+"enum": [
+"knowledge",
+"text",
+"structure",
+"reasoning",
+"summary",
+"classification",
+"recommendation",
+"decision_support",
+"transaction_support",
+"governance_signal",
+"risk_signal",
+"other"
+]
+},
+"contribution_scope": {
+"type": "string",
+"description": "Scope in which the contribution is relevant.",
+"enum": [
+"local",
+"session",
+"document",
+"repository",
+"agent_network",
+"transaction",
+"governance_process",
+"cross_system",
+"unknown"
+]
+},
+"strength": {
+"description": "Strength of the value relationship. This does not imply automatic ownership, payment, or compensation.",
+"oneOf": [
+{
+"type": "string",
+"enum": [
+"weak",
+"moderate",
+"strong",
+"confirmed",
+"uncertain"
+]
+},
+{
+"type": "number",
+"minimum": 0,
+"maximum": 1
+}
+]
+},
+"status": {
+"type": "string",
+"description": "Current status of the value relation.",
+"enum": [
+"detected",
+"structured",
+"pending_policy_evaluation",
+"pending_review",
+"reviewed",
+"accepted",
+"rejected",
+"disputed",
+"archived"
+]
+},
+"review_required": {
+"type": "boolean",
+"description": "Whether this value relation requires human, governance, or accountable review."
+},
+"policy_reference": {
+"$ref": "#/$defs/reference"
+},
+"metadata": {
+"type": "object",
+"description": "Additional non-core metadata.",
+"additionalProperties": true
+}
+},
+"$defs": {
+"entity": {
+"type": "object",
+"description": "A source, target, document, prompt, response, trace, value graph, transaction, decision, or other traceable entity.",
+"additionalProperties": false,
+"required": [
+"entity_id",
+"entity_type"
+],
+"properties": {
+"entity_id": {
+"type": "string",
+"description": "Unique or local identifier for the entity.",
+"minLength": 1
+},
+"entity_type": {
+"type": "string",
+"description": "Type of entity.",
+"enum": [
+"document",
+"prompt",
+"response",
+"summary",
+"model_output",
+"reasoning_structure",
+"transaction",
+"decision",
+"policy",
+"trace_record",
+"value_graph",
+"review_record",
+"repository_file",
+"external_reference",
+"communication_event",
+"trace_event",
+"other"
+]
+},
+"display_name": {
+"type": "string",
+"description": "Human-readable display name for the entity.",
+"minLength": 1
+},
+"reference": {
+"$ref": "#/$defs/reference"
+},
+"metadata": {
+"type": "object",
+"description": "Additional non-core entity metadata.",
+"additionalProperties": true
+}
+}
+},
+"reference": {
+"description": "A reference to evidence, content, context, session, actor, document, hash, URI, repository path, policy, or internal identifier.",
+"oneOf": [
+{
+"type": "string",
+"minLength": 1
+},
+{
+"type": "object",
+"additionalProperties": false,
+"required": [
+"reference_type",
+"value"
+],
+"properties": {
+"reference_type": {
+"type": "string",
+"enum": [
+"uri",
+"hash",
+"internal_id",
+"repository_path",
+"document_id",
+"session_id",
+"transaction_id",
+"communication_event_id",
+"trace_event_id",
+"policy_id",
+"redacted_pointer",
+"other"
+]
+},
+"value": {
+"type": "string",
+"minLength": 1
+},
+"description": {
+"type": "string"
+},
+"metadata": {
+"type": "object",
+"additionalProperties": true
+}
+}
+}
+]
+}
+}
+}
