@@ -1,0 +1,167 @@
+{
+"$schema": "https://json-schema.org/draft/2020-12/schema",
+"$id": "https://example.org/schemas/communication-event.schema.json",
+"title": "Communication Event",
+"description": "A minimal Communication Event record for Communication Royalty OS.",
+"type": "object",
+"additionalProperties": false,
+"required": [
+"communication_event_id",
+"timestamp",
+"source_actor",
+"target_actor",
+"communication_type",
+"content_reference"
+],
+"properties": {
+"schema_version": {
+"type": "string",
+"description": "Schema version for the Communication Event record.",
+"default": "0.1"
+},
+"communication_event_id": {
+"type": "string",
+"description": "Unique identifier for the communication event.",
+"minLength": 1,
+"pattern": "^CE-[A-Za-z0-9._:-]+$"
+},
+"timestamp": {
+"type": "string",
+"description": "Time at which the communication event occurred or was recorded.",
+"format": "date-time"
+},
+"source_actor": {
+"$ref": "#/$defs/actor"
+},
+"target_actor": {
+"$ref": "#/$defs/actor"
+},
+"communication_type": {
+"type": "string",
+"description": "Type of communication.",
+"enum": [
+"prompt",
+"response",
+"summary",
+"reference",
+"inference_request",
+"inference_response",
+"routing",
+"transformation",
+"recommendation",
+"transaction_context",
+"review_request",
+"system_message",
+"other"
+]
+},
+"content_reference": {
+"$ref": "#/$defs/reference"
+},
+"context_reference": {
+"$ref": "#/$defs/reference"
+},
+"session_reference": {
+"$ref": "#/$defs/reference"
+},
+"metadata": {
+"type": "object",
+"description": "Additional non-core metadata.",
+"additionalProperties": true
+}
+},
+"$defs": {
+"actor": {
+"type": "object",
+"description": "A user, AI agent, model, system, document, service, gateway, or governance body involved in the communication.",
+"additionalProperties": false,
+"required": [
+"actor_id",
+"actor_type"
+],
+"properties": {
+"actor_id": {
+"type": "string",
+"description": "Unique or local identifier for the actor.",
+"minLength": 1
+},
+"actor_type": {
+"type": "string",
+"description": "Type of actor.",
+"enum": [
+"user",
+"human_reviewer",
+"ai_agent",
+"ai_model",
+"system",
+"document",
+"repository",
+"service",
+"merchant",
+"governance_body",
+"policy_engine",
+"gateway",
+"unknown"
+]
+},
+"display_name": {
+"type": "string",
+"description": "Human-readable display name for the actor.",
+"minLength": 1
+},
+"reference": {
+"$ref": "#/$defs/reference"
+},
+"metadata": {
+"type": "object",
+"description": "Additional non-core actor metadata.",
+"additionalProperties": true
+}
+}
+},
+"reference": {
+"description": "A reference to content, context, session, actor, document, hash, URI, repository path, or internal identifier.",
+"oneOf": [
+{
+"type": "string",
+"minLength": 1
+},
+{
+"type": "object",
+"additionalProperties": false,
+"required": [
+"reference_type",
+"value"
+],
+"properties": {
+"reference_type": {
+"type": "string",
+"enum": [
+"uri",
+"hash",
+"internal_id",
+"repository_path",
+"document_id",
+"session_id",
+"transaction_id",
+"redacted_pointer",
+"other"
+]
+},
+"value": {
+"type": "string",
+"minLength": 1
+},
+"description": {
+"type": "string"
+},
+"metadata": {
+"type": "object",
+"additionalProperties": true
+}
+}
+}
+]
+}
+}
+}
