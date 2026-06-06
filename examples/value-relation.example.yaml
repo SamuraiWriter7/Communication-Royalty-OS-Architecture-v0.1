@@ -5,20 +5,20 @@ trace_event_id: "TE-001"
 relation_type: "summarized_by"
 
 source_entity:
-entity_id: "doc-001"
-entity_type: "document"
-display_name: "Original Source Document"
-reference:
-reference_type: "document_id"
-value: "doc:original-source-document"
+  entity_id: "doc-001"
+  entity_type: "document"
+  display_name: "Original Source Document"
+  reference:
+    reference_type: "document_id"
+    value: "doc:original-source-document"
 
 target_entity:
-entity_id: "summary-001"
-entity_type: "summary"
-display_name: "Agent Generated Summary"
-reference:
-reference_type: "hash"
-value: "sha256:example-summary-content-hash"
+  entity_id: "summary-001"
+  entity_type: "summary"
+  display_name: "Agent Generated Summary"
+  reference:
+    reference_type: "hash"
+    value: "sha256:example-summary-content-hash"
 
 contribution_type: "knowledge"
 contribution_scope: "session"
@@ -27,14 +27,15 @@ status: "pending_policy_evaluation"
 review_required: true
 
 policy_reference:
-reference_type: "policy_id"
-value: "policy:communication-royalty-os-v0.1"
-description: "Policy profile for initial Communication Royalty OS value relation review."
+  reference_type: "policy_id"
+  value: "policy:communication-royalty-os-v0.1"
+  description: "Policy profile for initial Communication Royalty OS value relation review."
 
 metadata:
-purpose: "Demonstrate a minimal Value Relation record linked to a Trace Event."
-value_layer: "royalty_os_v0.3"
-attribution_status: "not_finalized"
-compensation_status: "not_automatic"
-review_note: "This record structures a possible value relationship but does not assert ownership or payment."
+  purpose: "Demonstrate a minimal Value Relation record linked to a Trace Event."
+  value_layer: "royalty_os_v0.3"
+  attribution_status: "not_finalized"
+  compensation_status: "not_automatic"
+  review_note: "This record structures a possible value relationship but does not assert ownership or payment."
+
 
