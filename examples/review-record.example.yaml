@@ -3,12 +3,12 @@ review_record_id: "RR-001"
 policy_evaluation_id: "PE-001"
 
 reviewer:
-actor_id: "human-reviewer-001"
-actor_type: "human_reviewer"
-display_name: "Communication Royalty OS Human Reviewer"
-reference:
-reference_type: "internal_id"
-value: "reviewer:human-reviewer-001"
+  actor_id: "human-reviewer-001"
+  actor_type: "human_reviewer"
+  display_name: "Communication Royalty OS Human Reviewer"
+  reference:
+    reference_type: "internal_id"
+    value: "reviewer:human-reviewer-001"
 
 review_type: "human_review"
 review_decision: "requires_more_evidence"
@@ -20,29 +20,28 @@ appeal_allowed: true
 review_notes: "The related Policy Evaluation was reviewed. The detected value relation may be relevant, but the available evidence is not sufficient to finalize attribution, compensation, or future circulation. The record should remain available for traceability and future review."
 
 evidence_references:
-
-* reference_type: "policy_evaluation_id"
-  value: "PE-001"
-  description: "Policy Evaluation that triggered this review."
-* reference_type: "value_relation_id"
-  value: "VR-001"
-  description: "Value Relation reviewed through the policy evaluation."
-* reference_type: "trace_event_id"
-  value: "TE-001"
-  description: "Trace Event supporting the value relation."
-* reference_type: "communication_event_id"
-  value: "CE-001"
-  description: "Original Communication Event from which the trace was detected."
+  - reference_type: "policy_evaluation_id"
+    value: "PE-001"
+    description: "Policy Evaluation that triggered this review."
+  - reference_type: "value_relation_id"
+    value: "VR-001"
+    description: "Value Relation reviewed through the policy evaluation."
+  - reference_type: "trace_event_id"
+    value: "TE-001"
+    description: "Trace Event supporting the value relation."
+  - reference_type: "communication_event_id"
+    value: "CE-001"
+    description: "Original Communication Event from which the trace was detected."
 
 next_actions:
-
-* "request_more_evidence"
-* "mark_as_record_only"
+  - "request_more_evidence"
+  - "mark_as_record_only"
 
 metadata:
-purpose: "Demonstrate a minimal Review Record linked to a Policy Evaluation."
-review_layer: "human_review"
-attribution_finalized: false
-compensation_finalized: false
-future_circulation_ready: false
-review_summary: "Record preserved for traceability, but no automatic attribution or compensation decision is made."
+  purpose: "Demonstrate a minimal Review Record linked to a Policy Evaluation."
+  review_layer: "human_review"
+  attribution_finalized: false
+  compensation_finalized: false
+  future_circulation_ready: false
+  review_summary: "Record preserved for traceability, but no automatic attribution or compensation decision is made."
+
