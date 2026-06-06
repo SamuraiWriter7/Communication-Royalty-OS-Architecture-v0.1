@@ -3,37 +3,38 @@ communication_event_id: "CE-001"
 timestamp: "2026-06-06T00:00:00Z"
 
 source_actor:
-actor_id: "agent-a"
-actor_type: "ai_agent"
-display_name: "Agent A"
-reference:
-reference_type: "internal_id"
-value: "agent:agent-a"
+  actor_id: "agent-a"
+  actor_type: "ai_agent"
+  display_name: "Agent A"
+  reference:
+    reference_type: "internal_id"
+    value: "agent:agent-a"
 
 target_actor:
-actor_id: "agent-b"
-actor_type: "ai_agent"
-display_name: "Agent B"
-reference:
-reference_type: "internal_id"
-value: "agent:agent-b"
+  actor_id: "agent-b"
+  actor_type: "ai_agent"
+  display_name: "Agent B"
+  reference:
+    reference_type: "internal_id"
+    value: "agent:agent-b"
 
 communication_type: "summary"
 
 content_reference:
-reference_type: "hash"
-value: "sha256:example-summary-content-hash"
-description: "Redacted reference to the summary content."
+  reference_type: "hash"
+  value: "sha256:example-summary-content-hash"
+  description: "Redacted reference to the summary content."
 
 context_reference:
-reference_type: "session_id"
-value: "session:example-agent-communication"
+  reference_type: "session_id"
+  value: "session:example-agent-communication"
 
 session_reference:
-reference_type: "session_id"
-value: "session:example-agent-communication"
+  reference_type: "session_id"
+  value: "session:example-agent-communication"
 
 metadata:
-purpose: "Demonstrate a minimal Communication Event record."
-communication_layer: "agent_to_agent"
-privacy_mode: "content_reference_only"
+  purpose: "Demonstrate a minimal Communication Event record."
+  communication_layer: "agent_to_agent"
+  privacy_mode: "content_reference_only"
+
