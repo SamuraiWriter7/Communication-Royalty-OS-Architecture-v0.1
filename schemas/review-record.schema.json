@@ -1,0 +1,230 @@
+{
+"$schema": "https://json-schema.org/draft/2020-12/schema",
+"$id": "https://example.org/schemas/review-record.schema.json",
+"title": "Review Record",
+"description": "A minimal Review Record for Communication Royalty OS.",
+"type": "object",
+"additionalProperties": false,
+"required": [
+"review_record_id",
+"policy_evaluation_id",
+"reviewer",
+"review_type",
+"review_decision",
+"decision_scope",
+"timestamp",
+"appeal_allowed"
+],
+"properties": {
+"schema_version": {
+"type": "string",
+"description": "Schema version for the Review Record.",
+"default": "0.1"
+},
+"review_record_id": {
+"type": "string",
+"description": "Unique identifier for the review record.",
+"minLength": 1,
+"pattern": "^RR-[A-Za-z0-9.*:-]+$"
+},
+"policy_evaluation_id": {
+"type": "string",
+"description": "Identifier of the Policy Evaluation being reviewed.",
+"minLength": 1,
+"pattern": "^PE-[A-Za-z0-9.*:-]+$"
+},
+"reviewer": {
+"$ref": "#/$defs/actor"
+},
+"review_type": {
+"type": "string",
+"description": "Type of review performed.",
+"enum": [
+"human_review",
+"ai_assisted_review",
+"governance_review",
+"legal_review",
+"technical_review",
+"risk_review",
+"attribution_review",
+"other"
+]
+},
+"review_decision": {
+"type": "string",
+"description": "Outcome of the review.",
+"enum": [
+"accepted",
+"rejected",
+"partially_accepted",
+"requires_more_evidence",
+"out_of_scope",
+"archived",
+"disputed",
+"escalated",
+"other"
+]
+},
+"review_notes": {
+"type": "string",
+"description": "Optional notes explaining the review decision."
+},
+"decision_scope": {
+"type": "string",
+"description": "Scope of the review decision.",
+"enum": [
+"record_only",
+"attribution",
+"governance",
+"risk_control",
+"future_circulation",
+"compensation_review",
+"legal_review",
+"repository_scope",
+"system_scope",
+"unknown"
+]
+},
+"timestamp": {
+"type": "string",
+"description": "Time at which the review was recorded.",
+"format": "date-time"
+},
+"appeal_allowed": {
+"type": "boolean",
+"description": "Whether the review decision may be challenged, reopened, or escalated."
+},
+"evidence_references": {
+"type": "array",
+"description": "Optional references to evidence used during the review.",
+"items": {
+"$ref": "#/$defs/reference"
+},
+"uniqueItems": true
+},
+"next_actions": {
+"type": "array",
+"description": "Optional next actions following the review decision.",
+"items": {
+"type": "string",
+"enum": [
+"none",
+"archive_record",
+"request_more_evidence",
+"update_value_relation",
+"update_policy_evaluation",
+"escalate_to_governance",
+"escalate_to_legal_review",
+"mark_as_record_only",
+"prepare_for_future_circulation",
+"other"
+]
+},
+"uniqueItems": true
+},
+"metadata": {
+"type": "object",
+"description": "Additional non-core metadata.",
+"additionalProperties": true
+}
+},
+"$defs": {
+"actor": {
+"type": "object",
+"description": "A human reviewer, governance body, AI-assisted reviewer, legal reviewer, technical reviewer, risk reviewer, or other accountable reviewer.",
+"additionalProperties": false,
+"required": [
+"actor_id",
+"actor_type"
+],
+"properties": {
+"actor_id": {
+"type": "string",
+"description": "Unique or local identifier for the reviewer.",
+"minLength": 1
+},
+"actor_type": {
+"type": "string",
+"description": "Type of reviewer.",
+"enum": [
+"user",
+"human_reviewer",
+"ai_agent",
+"ai_model",
+"system",
+"governance_body",
+"policy_engine",
+"gateway",
+"legal_reviewer",
+"technical_reviewer",
+"risk_reviewer",
+"unknown"
+]
+},
+"display_name": {
+"type": "string",
+"description": "Human-readable display name for the reviewer.",
+"minLength": 1
+},
+"reference": {
+"$ref": "#/$defs/reference"
+},
+"metadata": {
+"type": "object",
+"description": "Additional non-core reviewer metadata.",
+"additionalProperties": true
+}
+}
+},
+"reference": {
+"description": "A reference to evidence, policy evaluation, value relation, trace event, communication event, URI, repository path, hash, or internal identifier.",
+"oneOf": [
+{
+"type": "string",
+"minLength": 1
+},
+{
+"type": "object",
+"additionalProperties": false,
+"required": [
+"reference_type",
+"value"
+],
+"properties": {
+"reference_type": {
+"type": "string",
+"enum": [
+"uri",
+"hash",
+"internal_id",
+"repository_path",
+"document_id",
+"session_id",
+"transaction_id",
+"communication_event_id",
+"trace_event_id",
+"value_relation_id",
+"policy_evaluation_id",
+"review_record_id",
+"policy_id",
+"redacted_pointer",
+"other"
+]
+},
+"value": {
+"type": "string",
+"minLength": 1
+},
+"description": {
+"type": "string"
+},
+"metadata": {
+"type": "object",
+"additionalProperties": true
+}
+}
+}
+]
+}
+}
+}
