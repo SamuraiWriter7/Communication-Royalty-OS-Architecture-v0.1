@@ -1,6 +1,3 @@
-## `schemas/policy-evaluation.schema.json`
-
-```json
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.org/schemas/policy-evaluation.schema.json",
@@ -221,48 +218,3 @@
     }
   }
 }
-```
-
-## `examples/policy-evaluation.example.yaml`
-
-```yaml
-schema_version: "0.1"
-policy_evaluation_id: "PE-001"
-value_relation_id: "VR-001"
-
-policy_profile:
-  reference_type: "policy_id"
-  value: "policy:communication-royalty-os-v0.1"
-  description: "Initial policy profile for Communication Royalty OS value relation review."
-
-evaluation_result: "requires_review"
-
-boundary_flags:
-  - "low_confidence"
-  - "human_review_required"
-  - "automatic_decision_prohibited"
-
-required_actions:
-  - "preserve_record"
-  - "request_human_review"
-  - "collect_more_evidence"
-
-review_priority: "normal"
-
-evaluator:
-  actor_id: "policy-engine-001"
-  actor_type: "policy_engine"
-  display_name: "Communication Royalty OS Policy Engine"
-  reference:
-    reference_type: "internal_id"
-    value: "policy-engine:communication-royalty-os-v0.1"
-
-timestamp: "2026-06-06T00:01:00Z"
-
-metadata:
-  purpose: "Demonstrate a minimal Policy Evaluation record linked to a Value Relation."
-  policy_layer: "royalty_os_v0.3"
-  automatic_compensation: false
-  automatic_attribution: false
-  evaluation_note: "The relation is preserved for review but no automatic claim is allowed."
-```
