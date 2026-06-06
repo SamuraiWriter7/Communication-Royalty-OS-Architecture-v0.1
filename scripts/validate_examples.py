@@ -154,6 +154,12 @@ def main() -> int:
     print("All examples passed validation.")
     return 0
 
+schemas/policy-evaluation.schema.json
+  -> examples/policy-evaluation.example.yaml
+
+schemas/review-record.schema.json
+  -> examples/review-record.example.yaml
+
 
 if __name__ == "__main__":
     sys.exit(main())
