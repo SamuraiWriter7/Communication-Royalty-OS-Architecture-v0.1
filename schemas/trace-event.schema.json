@@ -1,0 +1,225 @@
+{
+"$schema": "https://json-schema.org/draft/2020-12/schema",
+"$id": "https://example.org/schemas/trace-event.schema.json",
+"title": "Trace Event",
+"description": "A minimal Trace Event record for Communication Royalty OS.",
+"type": "object",
+"additionalProperties": false,
+"required": [
+"trace_event_id",
+"communication_event_id",
+"trace_type",
+"detected_source",
+"detected_target",
+"detection_method",
+"confidence",
+"evidence_reference"
+],
+"properties": {
+"schema_version": {
+"type": "string",
+"description": "Schema version for the Trace Event record.",
+"default": "0.1"
+},
+"trace_event_id": {
+"type": "string",
+"description": "Unique identifier for the trace event.",
+"minLength": 1,
+"pattern": "^TE-[A-Za-z0-9.*:-]+$"
+},
+"communication_event_id": {
+"type": "string",
+"description": "Identifier of the Communication Event from which this trace was detected.",
+"minLength": 1,
+"pattern": "^CE-[A-Za-z0-9.*:-]+$"
+},
+"trace_type": {
+"type": "string",
+"description": "Type of detected trace.",
+"enum": [
+"reference",
+"summary_reuse",
+"structural_reuse",
+"inference_influence",
+"routing_influence",
+"transformation",
+"quotation",
+"paraphrase",
+"decision_influence",
+"transaction_influence",
+"false_attribution_signal",
+"trace_poisoning_signal",
+"other"
+]
+},
+"detected_source": {
+"$ref": "#/$defs/entity"
+},
+"detected_target": {
+"$ref": "#/$defs/entity"
+},
+"detection_method": {
+"type": "string",
+"description": "Method used to detect the trace.",
+"enum": [
+"explicit_reference",
+"semantic_similarity",
+"structural_similarity",
+"metadata_link",
+"hash_match",
+"citation_match",
+"model_reported_trace",
+"human_reported_trace",
+"policy_trigger",
+"manual_review",
+"other"
+]
+},
+"confidence": {
+"description": "Confidence level or score for the detected trace. This does not imply automatic attribution or compensation.",
+"oneOf": [
+{
+"type": "string",
+"enum": [
+"low",
+"medium",
+"high",
+"confirmed",
+"disputed",
+"unknown"
+]
+},
+{
+"type": "number",
+"minimum": 0,
+"maximum": 1
+}
+]
+},
+"evidence_reference": {
+"$ref": "#/$defs/reference"
+},
+"risk_flags": {
+"type": "array",
+"description": "Optional risk indicators associated with the trace.",
+"items": {
+"type": "string",
+"enum": [
+"false_attribution_risk",
+"trace_poisoning_risk",
+"replay_risk",
+"context_hijacking_risk",
+"privacy_risk",
+"low_confidence",
+"fabricated_reference_risk",
+"excessive_claim_risk",
+"other"
+]
+},
+"uniqueItems": true
+},
+"metadata": {
+"type": "object",
+"description": "Additional non-core metadata.",
+"additionalProperties": true
+}
+},
+"$defs": {
+"entity": {
+"type": "object",
+"description": "A source, target, document, prompt, response, trace, value graph, transaction, decision, or other traceable entity.",
+"additionalProperties": false,
+"required": [
+"entity_id",
+"entity_type"
+],
+"properties": {
+"entity_id": {
+"type": "string",
+"description": "Unique or local identifier for the entity.",
+"minLength": 1
+},
+"entity_type": {
+"type": "string",
+"description": "Type of entity.",
+"enum": [
+"document",
+"prompt",
+"response",
+"summary",
+"model_output",
+"reasoning_structure",
+"transaction",
+"decision",
+"policy",
+"trace_record",
+"value_graph",
+"review_record",
+"repository_file",
+"external_reference",
+"communication_event",
+"other"
+]
+},
+"display_name": {
+"type": "string",
+"description": "Human-readable display name for the entity.",
+"minLength": 1
+},
+"reference": {
+"$ref": "#/$defs/reference"
+},
+"metadata": {
+"type": "object",
+"description": "Additional non-core entity metadata.",
+"additionalProperties": true
+}
+}
+},
+"reference": {
+"description": "A reference to evidence, content, context, session, actor, document, hash, URI, repository path, or internal identifier.",
+"oneOf": [
+{
+"type": "string",
+"minLength": 1
+},
+{
+"type": "object",
+"additionalProperties": false,
+"required": [
+"reference_type",
+"value"
+],
+"properties": {
+"reference_type": {
+"type": "string",
+"enum": [
+"uri",
+"hash",
+"internal_id",
+"repository_path",
+"document_id",
+"session_id",
+"transaction_id",
+"communication_event_id",
+"redacted_pointer",
+"other"
+]
+},
+"value": {
+"type": "string",
+"minLength": 1
+},
+"description": {
+"type": "string"
+},
+"metadata": {
+"type": "object",
+"additionalProperties": true
+}
+}
+}
+]
+}
+}
+}
