@@ -1,0 +1,39 @@
+schema_version: "0.1"
+trace_event_id: "TE-001"
+communication_event_id: "CE-001"
+
+trace_type: "summary_reuse"
+
+detected_source:
+entity_id: "doc-001"
+entity_type: "document"
+display_name: "Original Source Document"
+reference:
+reference_type: "document_id"
+value: "doc:original-source-document"
+
+detected_target:
+entity_id: "summary-001"
+entity_type: "summary"
+display_name: "Agent Generated Summary"
+reference:
+reference_type: "hash"
+value: "sha256:example-summary-content-hash"
+
+detection_method: "semantic_similarity"
+confidence: "medium"
+
+evidence_reference:
+reference_type: "communication_event_id"
+value: "CE-001"
+description: "Trace detected from the related Communication Event."
+
+risk_flags:
+
+* "low_confidence"
+
+metadata:
+purpose: "Demonstrate a minimal Trace Event record linked to a Communication Event."
+detection_layer: "trace_protocol"
+attribution_status: "not_asserted"
+compensation_status: "not_applicable"
