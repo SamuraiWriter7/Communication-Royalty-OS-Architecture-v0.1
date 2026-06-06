@@ -1,0 +1,268 @@
+## `schemas/policy-evaluation.schema.json`
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/schemas/policy-evaluation.schema.json",
+  "title": "Policy Evaluation",
+  "description": "A minimal Policy Evaluation record for Communication Royalty OS.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "policy_evaluation_id",
+    "value_relation_id",
+    "policy_profile",
+    "evaluation_result",
+    "boundary_flags",
+    "required_actions",
+    "review_priority",
+    "evaluator",
+    "timestamp"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "description": "Schema version for the Policy Evaluation record.",
+      "default": "0.1"
+    },
+    "policy_evaluation_id": {
+      "type": "string",
+      "description": "Unique identifier for the policy evaluation.",
+      "minLength": 1,
+      "pattern": "^PE-[A-Za-z0-9._:-]+$"
+    },
+    "value_relation_id": {
+      "type": "string",
+      "description": "Identifier of the Value Relation being evaluated.",
+      "minLength": 1,
+      "pattern": "^VR-[A-Za-z0-9._:-]+$"
+    },
+    "policy_profile": {
+      "$ref": "#/$defs/reference"
+    },
+    "evaluation_result": {
+      "type": "string",
+      "description": "Result of the policy evaluation.",
+      "enum": [
+        "no_action",
+        "record_only",
+        "requires_review",
+        "requires_attribution_review",
+        "requires_governance_review",
+        "requires_risk_review",
+        "out_of_scope",
+        "insufficient_evidence",
+        "prohibited_automatic_claim",
+        "approved_for_next_stage",
+        "other"
+      ]
+    },
+    "boundary_flags": {
+      "type": "array",
+      "description": "Policy or governance boundaries triggered by the evaluation.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "low_confidence",
+          "high_impact",
+          "false_attribution_risk",
+          "trace_poisoning_risk",
+          "privacy_risk",
+          "legal_review_required",
+          "compensation_out_of_scope",
+          "human_review_required",
+          "automatic_decision_prohibited",
+          "other"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "required_actions": {
+      "type": "array",
+      "description": "Actions required before this relation can move to the next stage.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "no_action",
+          "preserve_record",
+          "request_human_review",
+          "request_governance_review",
+          "request_risk_review",
+          "request_attribution_review",
+          "mark_out_of_scope",
+          "reject_automatic_claim",
+          "collect_more_evidence",
+          "archive_relation",
+          "other"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "review_priority": {
+      "type": "string",
+      "description": "Priority level for review.",
+      "enum": [
+        "low",
+        "normal",
+        "high",
+        "critical"
+      ]
+    },
+    "evaluator": {
+      "$ref": "#/$defs/actor"
+    },
+    "timestamp": {
+      "type": "string",
+      "description": "Time at which the policy evaluation occurred.",
+      "format": "date-time"
+    },
+    "metadata": {
+      "type": "object",
+      "description": "Additional non-core metadata.",
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "actor": {
+      "type": "object",
+      "description": "A user, AI agent, model, system, policy engine, gateway, or governance body involved in evaluation.",
+      "additionalProperties": false,
+      "required": [
+        "actor_id",
+        "actor_type"
+      ],
+      "properties": {
+        "actor_id": {
+          "type": "string",
+          "description": "Unique or local identifier for the actor.",
+          "minLength": 1
+        },
+        "actor_type": {
+          "type": "string",
+          "description": "Type of actor.",
+          "enum": [
+            "user",
+            "human_reviewer",
+            "ai_agent",
+            "ai_model",
+            "system",
+            "document",
+            "repository",
+            "service",
+            "merchant",
+            "governance_body",
+            "policy_engine",
+            "gateway",
+            "unknown"
+          ]
+        },
+        "display_name": {
+          "type": "string",
+          "description": "Human-readable display name for the actor.",
+          "minLength": 1
+        },
+        "reference": {
+          "$ref": "#/$defs/reference"
+        },
+        "metadata": {
+          "type": "object",
+          "description": "Additional non-core actor metadata.",
+          "additionalProperties": true
+        }
+      }
+    },
+    "reference": {
+      "description": "A reference to a policy profile, evidence, content, URI, repository path, or internal identifier.",
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "reference_type",
+            "value"
+          ],
+          "properties": {
+            "reference_type": {
+              "type": "string",
+              "enum": [
+                "uri",
+                "hash",
+                "internal_id",
+                "repository_path",
+                "document_id",
+                "session_id",
+                "transaction_id",
+                "communication_event_id",
+                "trace_event_id",
+                "value_relation_id",
+                "policy_id",
+                "redacted_pointer",
+                "other"
+              ]
+            },
+            "value": {
+              "type": "string",
+              "minLength": 1
+            },
+            "description": {
+              "type": "string"
+            },
+            "metadata": {
+              "type": "object",
+              "additionalProperties": true
+            }
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+## `examples/policy-evaluation.example.yaml`
+
+```yaml
+schema_version: "0.1"
+policy_evaluation_id: "PE-001"
+value_relation_id: "VR-001"
+
+policy_profile:
+  reference_type: "policy_id"
+  value: "policy:communication-royalty-os-v0.1"
+  description: "Initial policy profile for Communication Royalty OS value relation review."
+
+evaluation_result: "requires_review"
+
+boundary_flags:
+  - "low_confidence"
+  - "human_review_required"
+  - "automatic_decision_prohibited"
+
+required_actions:
+  - "preserve_record"
+  - "request_human_review"
+  - "collect_more_evidence"
+
+review_priority: "normal"
+
+evaluator:
+  actor_id: "policy-engine-001"
+  actor_type: "policy_engine"
+  display_name: "Communication Royalty OS Policy Engine"
+  reference:
+    reference_type: "internal_id"
+    value: "policy-engine:communication-royalty-os-v0.1"
+
+timestamp: "2026-06-06T00:01:00Z"
+
+metadata:
+  purpose: "Demonstrate a minimal Policy Evaluation record linked to a Value Relation."
+  policy_layer: "royalty_os_v0.3"
+  automatic_compensation: false
+  automatic_attribution: false
+  evaluation_note: "The relation is preserved for review but no automatic claim is allowed."
+```
